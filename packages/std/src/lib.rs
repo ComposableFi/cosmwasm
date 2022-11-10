@@ -1,4 +1,5 @@
 #![cfg_attr(feature = "backtraces", feature(backtrace))]
+#![cfg_attr(not(feature = "std"), no_std)]
 
 // Exposed on all platforms
 
@@ -24,6 +25,9 @@ mod storage;
 mod timestamp;
 mod traits;
 mod types;
+
+#[macro_use]
+extern crate alloc;
 
 pub use crate::addresses::{Addr, CanonicalAddr};
 pub use crate::binary::Binary;
