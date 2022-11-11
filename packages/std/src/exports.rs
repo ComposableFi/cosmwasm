@@ -7,8 +7,9 @@
 //! and `do_sudo` should be wrapped with a extern "C" entry point including
 //! the contract-specific function pointer. This is done via the `#[entry_point]`
 //! macro attribute from cosmwasm-derive.
-use std::marker::PhantomData;
-use std::vec::Vec;
+use alloc::string::ToString;
+use alloc::vec::Vec;
+use core::marker::PhantomData;
 
 use serde::de::DeserializeOwned;
 
@@ -21,7 +22,7 @@ use crate::ibc::{
 };
 use crate::imports::{ExternalApi, ExternalQuerier, ExternalStorage};
 use crate::memory::{alloc, consume_region, release_buffer, Region};
-#[cfg(feature = "abort")]
+#[cfg(all(feature = "abort", feature = "std"))]
 use crate::panic::install_panic_handler;
 use crate::query::CustomQuery;
 use crate::results::{ContractResult, QueryResponse, Reply, Response};
@@ -100,7 +101,7 @@ where
     C: CustomMsg,
     E: ToString,
 {
-    #[cfg(feature = "abort")]
+    #[cfg(all(feature = "abort", feature = "std"))]
     install_panic_handler();
     let res = _do_instantiate(
         instantiate_fn,
@@ -130,7 +131,7 @@ where
     C: CustomMsg,
     E: ToString,
 {
-    #[cfg(feature = "abort")]
+    #[cfg(all(feature = "abort", feature = "std"))]
     install_panic_handler();
     let res = _do_execute(
         execute_fn,
@@ -159,7 +160,7 @@ where
     C: CustomMsg,
     E: ToString,
 {
-    #[cfg(feature = "abort")]
+    #[cfg(all(feature = "abort", feature = "std"))]
     install_panic_handler();
     let res = _do_migrate(migrate_fn, env_ptr as *mut Region, msg_ptr as *mut Region);
     let v = to_vec(&res).unwrap();
@@ -183,7 +184,7 @@ where
     C: CustomMsg,
     E: ToString,
 {
-    #[cfg(feature = "abort")]
+    #[cfg(all(feature = "abort", feature = "std"))]
     install_panic_handler();
     let res = _do_sudo(sudo_fn, env_ptr as *mut Region, msg_ptr as *mut Region);
     let v = to_vec(&res).unwrap();
@@ -206,7 +207,7 @@ where
     C: CustomMsg,
     E: ToString,
 {
-    #[cfg(feature = "abort")]
+    #[cfg(all(feature = "abort", feature = "std"))]
     install_panic_handler();
     let res = _do_reply(reply_fn, env_ptr as *mut Region, msg_ptr as *mut Region);
     let v = to_vec(&res).unwrap();
@@ -228,7 +229,7 @@ where
     M: DeserializeOwned,
     E: ToString,
 {
-    #[cfg(feature = "abort")]
+    #[cfg(all(feature = "abort", feature = "std"))]
     install_panic_handler();
     let res = _do_query(query_fn, env_ptr as *mut Region, msg_ptr as *mut Region);
     let v = to_vec(&res).unwrap();
@@ -251,7 +252,7 @@ where
     Q: CustomQuery,
     E: ToString,
 {
-    #[cfg(feature = "abort")]
+    #[cfg(all(feature = "abort", feature = "std"))]
     install_panic_handler();
     let res = _do_ibc_channel_open(contract_fn, env_ptr as *mut Region, msg_ptr as *mut Region);
     let v = to_vec(&res).unwrap();
@@ -276,7 +277,7 @@ where
     C: CustomMsg,
     E: ToString,
 {
-    #[cfg(feature = "abort")]
+    #[cfg(all(feature = "abort", feature = "std"))]
     install_panic_handler();
     let res = _do_ibc_channel_connect(contract_fn, env_ptr as *mut Region, msg_ptr as *mut Region);
     let v = to_vec(&res).unwrap();
@@ -301,7 +302,7 @@ where
     C: CustomMsg,
     E: ToString,
 {
-    #[cfg(feature = "abort")]
+    #[cfg(all(feature = "abort", feature = "std"))]
     install_panic_handler();
     let res = _do_ibc_channel_close(contract_fn, env_ptr as *mut Region, msg_ptr as *mut Region);
     let v = to_vec(&res).unwrap();
@@ -327,7 +328,7 @@ where
     C: CustomMsg,
     E: ToString,
 {
-    #[cfg(feature = "abort")]
+    #[cfg(all(feature = "abort", feature = "std"))]
     install_panic_handler();
     let res = _do_ibc_packet_receive(contract_fn, env_ptr as *mut Region, msg_ptr as *mut Region);
     let v = to_vec(&res).unwrap();
@@ -353,7 +354,7 @@ where
     C: CustomMsg,
     E: ToString,
 {
-    #[cfg(feature = "abort")]
+    #[cfg(all(feature = "abort", feature = "std"))]
     install_panic_handler();
     let res = _do_ibc_packet_ack(contract_fn, env_ptr as *mut Region, msg_ptr as *mut Region);
     let v = to_vec(&res).unwrap();
@@ -380,7 +381,7 @@ where
     C: CustomMsg,
     E: ToString,
 {
-    #[cfg(feature = "abort")]
+    #[cfg(all(feature = "abort", feature = "std"))]
     install_panic_handler();
     let res = _do_ibc_packet_timeout(contract_fn, env_ptr as *mut Region, msg_ptr as *mut Region);
     let v = to_vec(&res).unwrap();
