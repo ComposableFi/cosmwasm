@@ -3,6 +3,7 @@ use alloc::string::{String, ToString};
 use core::ops::{
     Add, AddAssign, Div, DivAssign, Mul, MulAssign, Rem, RemAssign, Shr, ShrAssign, Sub, SubAssign,
 };
+#[cfg(feature = "std")]
 use forward_ref::{forward_ref_binop, forward_ref_op_assign};
 use serde::{de, ser, Deserialize, Deserializer, Serialize};
 
@@ -306,6 +307,7 @@ impl Sub<Uint64> for Uint64 {
         )
     }
 }
+#[cfg(feature = "std")]
 forward_ref_binop!(impl Sub, sub for Uint64, Uint64);
 
 impl SubAssign<Uint64> for Uint64 {
@@ -313,6 +315,7 @@ impl SubAssign<Uint64> for Uint64 {
         *self = *self - rhs;
     }
 }
+#[cfg(feature = "std")]
 forward_ref_op_assign!(impl SubAssign, sub_assign for Uint64, Uint64);
 
 impl Mul<Uint64> for Uint64 {
@@ -326,6 +329,7 @@ impl Mul<Uint64> for Uint64 {
         )
     }
 }
+#[cfg(feature = "std")]
 forward_ref_binop!(impl Mul, mul for Uint64, Uint64);
 
 impl MulAssign<Uint64> for Uint64 {
@@ -333,6 +337,7 @@ impl MulAssign<Uint64> for Uint64 {
         *self = *self * rhs;
     }
 }
+#[cfg(feature = "std")]
 forward_ref_op_assign!(impl MulAssign, mul_assign for Uint64, Uint64);
 
 impl Div<Uint64> for Uint64 {
@@ -362,6 +367,7 @@ impl Rem for Uint64 {
         Self(self.0.rem(rhs.0))
     }
 }
+#[cfg(feature = "std")]
 forward_ref_binop!(impl Rem, rem for Uint64, Uint64);
 
 impl RemAssign<Uint64> for Uint64 {
@@ -369,6 +375,7 @@ impl RemAssign<Uint64> for Uint64 {
         *self = *self % rhs;
     }
 }
+#[cfg(feature = "std")]
 forward_ref_op_assign!(impl RemAssign, rem_assign for Uint64, Uint64);
 
 impl Shr<u32> for Uint64 {
