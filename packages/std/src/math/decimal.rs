@@ -3,6 +3,7 @@ use alloc::str::FromStr;
 use alloc::string::ToString;
 use core::cmp::Ordering;
 use core::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Rem, RemAssign, Sub, SubAssign};
+#[cfg(feature = "std")]
 use forward_ref::{forward_ref_binop, forward_ref_op_assign};
 use serde::{de, ser, Deserialize, Deserializer, Serialize};
 
@@ -465,6 +466,7 @@ impl Add for Decimal {
         Decimal(self.0 + other.0)
     }
 }
+#[cfg(feature = "std")]
 forward_ref_binop!(impl Add, add for Decimal, Decimal);
 
 impl AddAssign for Decimal {
@@ -472,6 +474,7 @@ impl AddAssign for Decimal {
         *self = *self + rhs;
     }
 }
+#[cfg(feature = "std")]
 forward_ref_op_assign!(impl AddAssign, add_assign for Decimal, Decimal);
 
 impl Sub for Decimal {
@@ -481,6 +484,7 @@ impl Sub for Decimal {
         Decimal(self.0 - other.0)
     }
 }
+#[cfg(feature = "std")]
 forward_ref_binop!(impl Sub, sub for Decimal, Decimal);
 
 impl SubAssign for Decimal {
@@ -488,6 +492,7 @@ impl SubAssign for Decimal {
         *self = *self - rhs;
     }
 }
+#[cfg(feature = "std")]
 forward_ref_op_assign!(impl SubAssign, sub_assign for Decimal, Decimal);
 
 impl Mul for Decimal {
@@ -508,6 +513,7 @@ impl Mul for Decimal {
         }
     }
 }
+#[cfg(feature = "std")]
 forward_ref_binop!(impl Mul, mul for Decimal, Decimal);
 
 impl MulAssign for Decimal {
@@ -515,6 +521,7 @@ impl MulAssign for Decimal {
         *self = *self * rhs;
     }
 }
+#[cfg(feature = "std")]
 forward_ref_op_assign!(impl MulAssign, mul_assign for Decimal, Decimal);
 
 /// Both d*u and u*d with d: Decimal and u: Uint128 returns an Uint128. There is no
@@ -556,6 +563,7 @@ impl Div for Decimal {
         }
     }
 }
+#[cfg(feature = "std")]
 forward_ref_binop!(impl Div, div for Decimal, Decimal);
 
 impl DivAssign for Decimal {
@@ -563,6 +571,7 @@ impl DivAssign for Decimal {
         *self = *self / rhs;
     }
 }
+#[cfg(feature = "std")]
 forward_ref_op_assign!(impl DivAssign, div_assign for Decimal, Decimal);
 
 impl Div<Uint128> for Decimal {
@@ -590,6 +599,7 @@ impl Rem for Decimal {
         Self(self.0.rem(rhs.0))
     }
 }
+#[cfg(feature = "std")]
 forward_ref_binop!(impl Rem, rem for Decimal, Decimal);
 
 impl RemAssign<Decimal> for Decimal {
@@ -597,6 +607,7 @@ impl RemAssign<Decimal> for Decimal {
         *self = *self % rhs;
     }
 }
+#[cfg(feature = "std")]
 forward_ref_op_assign!(impl RemAssign, rem_assign for Decimal, Decimal);
 
 impl<A> core::iter::Sum<A> for Decimal

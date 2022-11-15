@@ -8,6 +8,7 @@ use crate::coin::Coin;
 use crate::errors::StdResult;
 #[cfg(feature = "stargate")]
 use crate::ibc::IbcMsg;
+#[cfg(feature = "std")]
 use crate::serde::to_binary;
 
 use super::Empty;
@@ -211,6 +212,7 @@ pub enum VoteOption {
 /// Shortcut helper as the construction of WasmMsg::Instantiate can be quite verbose in contract code.
 ///
 /// When using this, `admin` is always unset. If you need more flexibility, create the message directly.
+#[cfg(feature = "std")]
 pub fn wasm_instantiate(
     code_id: u64,
     msg: &impl Serialize,
@@ -228,6 +230,7 @@ pub fn wasm_instantiate(
 }
 
 /// Shortcut helper as the construction of WasmMsg::Instantiate can be quite verbose in contract code
+#[cfg(feature = "std")]
 pub fn wasm_execute(
     contract_addr: impl Into<String>,
     msg: &impl Serialize,
